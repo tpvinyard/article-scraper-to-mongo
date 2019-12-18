@@ -1,4 +1,5 @@
 var express = require("express");
+var exphbs  = require('express-handlebars');
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
@@ -16,6 +17,13 @@ var PORT = 3000;
 // Initialize Express
 var app = express();
 
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+ 
+app.get('/', function (req, res) {
+    res.render('home');
+});
+
 // Configure middleware
 
 // Use morgan logger for logging requests
@@ -27,7 +35,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/article-scraper", { useNewUrlParser: true });
 
 // Routes
 
