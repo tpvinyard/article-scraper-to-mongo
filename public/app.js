@@ -39,10 +39,13 @@ $(document).on("click", ".comment", function() {
 
       // If there's a comment in the article
       if (data.comment) {
-        // Place the title of the comment in the title input
-        $("#titleinput").val(data.comment[0].title);
-        // Place the body of the comment in the body textarea
-        $("#bodyinput").val(data.comment[0].body);
+        for (let item of data.comment) {
+          console.log(item.title);
+          console.log(item.body)
+          let commentAll = $("<div>");
+          commentAll.html(`<ul><li>Title: ${item.title}</li><li>Comment: ${item.body}</li></ul>`);
+          $("#comment").append(commentAll);
+        }
       }
     });
 });
