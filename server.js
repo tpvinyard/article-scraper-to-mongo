@@ -125,6 +125,33 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
+// Delete a comment
+app.delete("/comment/delete/:comment_id/:article_id", function(req, res) {
+  // Use the comment id to find and delete it
+  Comment.findOneAndRemove({ "_id": req.params.comment_id }, function(err) {
+    // Log any errors
+    if (err) {
+      console.log(err);
+      res.send(err);
+    }
+    else {
+      Article.findOneAndUpdate({ "_id": req.params.article_id }, {$pull: {"Comment": req.params.comment_id}})
+       // Execute the above query
+        .exec(function(err) {
+          // Log any errors
+          if (err) {
+            console.log(err);
+            res.send(err);
+          }
+          else {
+            // Or send the note to the browser
+            res.send("Comment Deleted");
+          }
+        });
+    }
+  });
+});
+
 // Start the server
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
