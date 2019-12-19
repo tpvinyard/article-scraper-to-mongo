@@ -12,6 +12,16 @@ $.getJSON("/articles", function(data) {
   }
 });
 
+$("#scrape").on("click", function() {
+  $.ajax({
+      method: "GET",
+      url: "/scrape",
+  }).done(function(data) {
+      console.log(data)
+      window.location = "/"
+  })
+});
+
 
 // Whenever someone clicks a comment
 $(document).on("click", ".comment", function() {
