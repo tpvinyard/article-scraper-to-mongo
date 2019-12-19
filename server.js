@@ -14,6 +14,11 @@ var db = require("./models");
 
 var PORT = 3000;
 
+// Connect to the Mongo DB
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/article-scraper";
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
 // Initialize Express
 var app = express();
 
@@ -33,11 +38,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
-
-// Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/article-scraper";
-
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Routes
 
